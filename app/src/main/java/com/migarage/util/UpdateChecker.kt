@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
+import android.os.Handler
+import android.os.Looper
 import com.migarage.BuildConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,8 +21,23 @@ object UpdateChecker {
     private const val REPO_OWNER = "hbravoStridelabs"
     private const val REPO_NAME = "MiGarage"
     private const val VERSION_URL = "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases/latest"
+    private const val CHECK_INTERVAL_MS = 30 * 60 * 1000L // 30 minutes
 
-    fun checkForUpdates(context: Context, onResult: (UpdateInfo?) -> Unit) {
+    private var lastCheckTime = 0L
+    private var hasShownUpdateDialogThisSession = false
+
+    fun checkForUpdates(context: Context, forceCheck: Boolean = false) {
+        if (hasShownUpdateDialogThisSession && !forceCheck) {
+            return
+        }
+
+        val currentTime = System.currentTimeMillis()
+        if (!forceCheck && (currentTime - lastCheckTime) < CHECK_INTERVAL_MS) {
+            return
+        }
+
+        lastCheckTime = currentTime
+
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val url = URL(VERSION_URL)
@@ -44,22 +61,13 @@ object UpdateChecker {
 
                     if (isNewerVersion(versionName, currentVersion)) {
                         withContext(Dispatchers.Main) {
-                            onResult(UpdateInfo(versionName, downloadUrl))
+                            hasShownUpdateDialogThisSession = true
+                            showUpdateDialog(context, UpdateInfo(versionName, downloadUrl))
                         }
-                    } else {
-                        withContext(Dispatchers.Main) {
-                            onResult(null)
-                        }
-                    }
-                } else {
-                    withContext(Dispatchers.Main) {
-                        onResult(null)
                     }
                 }
             } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    onResult(null)
-                }
+                // Silent fail - don't bother user with network errors
             }
         }
     }

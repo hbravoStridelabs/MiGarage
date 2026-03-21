@@ -1,6 +1,9 @@
 package com.migarage.presentation.navigation
 
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -18,10 +21,14 @@ import com.migarage.presentation.screens.profile.ProfileScreen
 import com.migarage.presentation.screens.vehicle.AddVehicleScreen
 
 @Composable
-fun NavGraph(navController: NavHostController) {
+fun NavGraph(
+    navController: NavHostController,
+    paddingValues: PaddingValues = PaddingValues()
+) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Home.route
+        startDestination = Screen.Home.route,
+        modifier = Modifier.padding(paddingValues)
     ) {
         composable(Screen.Home.route) {
             HomeScreen(

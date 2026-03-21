@@ -14,7 +14,7 @@ sealed class Screen(
     val icon: ImageVector? = null
 ) {
     data object Home : Screen("home", "Inicio", Icons.Default.Home)
-    data object Documents : Screen("documents", "Documentos", Icons.Default.Description)
+    data object Documents : Screen("documents", "Docs", Icons.Default.Description)
     data object Maintenance : Screen("maintenance", "Taller", Icons.Default.Build)
     data object Alerts : Screen("alerts", "Alertas", Icons.Default.Notifications)
     data object Profile : Screen("profile", "Perfil", Icons.Default.Person)

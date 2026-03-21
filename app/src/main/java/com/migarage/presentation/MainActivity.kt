@@ -1,6 +1,8 @@
 package com.migarage.presentation
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -33,11 +35,24 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    
+    private val handler = Handler(Looper.getMainLooper())
+    private val updateCheckerRunnable = object : Runnable {
+        override fun run() {
+            UpdateChecker.checkForUpdates(this@MainActivity, forceCheck = false)
+            handler.postDelayed(this, 30 * 60 * 1000L) // Check every 30 minutes
+        }
+    }
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        checkForUpdates()
+        // Check for updates on startup
+        UpdateChecker.checkForUpdates(this, forceCheck = true)
+        
+        // Start periodic update checks
+        handler.postDelayed(updateCheckerRunnable, 30 * 60 * 1000L)
 
         setContent {
             MiGarageTheme {
@@ -45,14 +60,10 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-
-    private fun checkForUpdates() {
-        // Update checker - only runs once per app session to avoid loops
-        UpdateChecker.checkForUpdates(this) { updateInfo ->
-            updateInfo?.let {
-                UpdateChecker.showUpdateDialog(this, it)
-            }
-        }
+    
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacks(updateCheckerRunnable)
     }
 }
 
@@ -105,7 +116,8 @@ fun MainScreen() {
         }
     ) { paddingValues ->
         NavGraph(
-            navController = navController
+            navController = navController,
+            paddingValues = paddingValues
         )
     }
 }

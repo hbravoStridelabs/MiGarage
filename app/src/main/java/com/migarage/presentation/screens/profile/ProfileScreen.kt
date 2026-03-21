@@ -23,6 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.migarage.BuildConfig
 import com.migarage.presentation.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -194,7 +195,7 @@ fun ProfileScreen(
                     ProfileSettingsItem(
                         icon = Icons.Default.Info,
                         title = "Acerca de",
-                        subtitle = "Versión 1.0.0",
+                        subtitle = "Versión ${BuildConfig.VERSION_NAME}",
                         onClick = { }
                     )
                     HorizontalDividerLine()
