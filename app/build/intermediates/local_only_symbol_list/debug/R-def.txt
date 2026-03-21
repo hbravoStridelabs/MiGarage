@@ -11,11 +11,13 @@ color surface_light
 color text_primary
 color text_secondary
 color warning
+drawable bg_garage_vehicles
 drawable ic_launcher_foreground
 mipmap ic_launcher
 mipmap ic_launcher_round
 string app_name
 style Theme.MiGarage
+style Theme.MiGarage.Dialog
 xml backup_rules
 xml data_extraction_rules
 xml file_paths

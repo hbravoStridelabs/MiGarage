@@ -17,4 +17,8 @@
         <item name="android:navigationBarColor">@color/background</item>
         <item name="android:windowBackground">@color/background</item>
     </style>
+    <style name="Theme.MiGarage.Dialog" parent="android:Theme.Material.Dialog">
+        <item name="android:windowBackground">@color/surface</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
 </resources>

@@ -1,20 +1,20 @@
 -- Merging decision tree log ---
 provider#androidx.core.content.FileProvider
-INJECTED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:34:9-42:20
+INJECTED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:35:9-43:20
 	android:grantUriPermissions
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:38:13-47
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:39:13-47
 	android:authorities
 		INJECTED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:36:13-64
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:37:13-64
 	android:exported
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:37:13-37
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:38:13-37
 	android:name
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:35:13-62
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:36:13-62
 manifest
-ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:2:1-54:12
-INJECTED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:2:1-54:12
-INJECTED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:2:1-54:12
-INJECTED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:2:1-54:12
+ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:2:1-55:12
+INJECTED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:2:1-55:12
+INJECTED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:2:1-55:12
+INJECTED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:2:1-55:12
 MERGED from [androidx.camera:camera-video:1.3.1] C:\Users\HernanBRAVO\.gradle\caches\8.13\transforms\f9f096269928ec9d36b5b03eb148b536\transformed\jetified-camera-video-1.3.1\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.camera:camera-view:1.3.1] C:\Users\HernanBRAVO\.gradle\caches\8.13\transforms\b2d699b9934a12b1c788e8ed12b25786\transformed\jetified-camera-view-1.3.1\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.camera:camera-lifecycle:1.3.1] C:\Users\HernanBRAVO\.gradle\caches\8.13\transforms\fc97a59a06083846db27dada90487340\transformed\jetified-camera-lifecycle-1.3.1\AndroidManifest.xml:2:1-7:12
@@ -138,27 +138,33 @@ ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src
 		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:5:58-82
 	android:name
 		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:5:19-57
+uses-permission#android.permission.INTERNET
+ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:7:5-67
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\HernanBRAVO\.gradle\caches\8.13\transforms\d685877c1f7bcf24023813cf4bc4a7a1\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:26:5-67
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\HernanBRAVO\.gradle\caches\8.13\transforms\d685877c1f7bcf24023813cf4bc4a7a1\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:26:5-67
+	android:name
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:7:22-64
 uses-permission#android.permission.CAMERA
-ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:7:5-65
+ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:8:5-65
 	android:name
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:7:22-62
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:8:22-62
 uses-permission#android.permission.POST_NOTIFICATIONS
-ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:8:5-77
+ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:9:5-77
 	android:name
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:8:22-74
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:9:22-74
 uses-permission#android.permission.SCHEDULE_EXACT_ALARM
-ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:9:5-79
+ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:10:5-79
 	android:name
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:9:22-76
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:10:22-76
 uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
-ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:10:5-81
+ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:11:5-81
 MERGED from [androidx.work:work-runtime:2.9.0] C:\Users\HernanBRAVO\.gradle\caches\8.13\transforms\69480e7a73408a51550845c58ae16411\transformed\work-runtime-2.9.0\AndroidManifest.xml:25:5-81
 MERGED from [androidx.work:work-runtime:2.9.0] C:\Users\HernanBRAVO\.gradle\caches\8.13\transforms\69480e7a73408a51550845c58ae16411\transformed\work-runtime-2.9.0\AndroidManifest.xml:25:5-81
 	android:name
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:10:22-78
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:11:22-78
 application
-ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:12:5-52:19
-INJECTED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:12:5-52:19
+ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:13:5-53:19
+INJECTED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:13:5-53:19
 MERGED from [androidx.camera:camera-camera2:1.3.1] C:\Users\HernanBRAVO\.gradle\caches\8.13\transforms\845d35106c7294d13d6cb11fb9448cb4\transformed\jetified-camera-camera2-1.3.1\AndroidManifest.xml:23:5-34:19
 MERGED from [androidx.camera:camera-camera2:1.3.1] C:\Users\HernanBRAVO\.gradle\caches\8.13\transforms\845d35106c7294d13d6cb11fb9448cb4\transformed\jetified-camera-camera2-1.3.1\AndroidManifest.xml:23:5-34:19
 MERGED from [androidx.camera:camera-core:1.3.1] C:\Users\HernanBRAVO\.gradle\caches\8.13\transforms\c97d7ea64965eafff746ac71b54323aa\transformed\jetified-camera-core-1.3.1\AndroidManifest.xml:23:5-34:19
@@ -206,61 +212,61 @@ MERGED from [com.google.android.odml:image:1.0.0-beta1] C:\Users\HernanBRAVO\.gr
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.12.0] C:\Users\HernanBRAVO\.gradle\caches\8.13\transforms\244258404033d381509da0ee289e8516\transformed\core-1.12.0\AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:20:9-35
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:21:9-35
 	android:label
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:18:9-41
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:19:9-41
 	android:fullBackupContent
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:16:9-54
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:17:9-54
 	android:roundIcon
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:19:9-54
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:20:9-54
 	tools:targetApi
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:22:9-29
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:23:9-29
 	android:icon
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:17:9-43
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:18:9-43
 	android:allowBackup
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:14:9-35
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:15:9-35
 	android:theme
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:21:9-46
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:22:9-46
 	android:dataExtractionRules
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:15:9-65
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:16:9-65
 	android:name
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:13:9-36
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:14:9-36
 activity#com.migarage.presentation.MainActivity
-ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:24:9-32:20
+ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:25:9-33:20
 	android:exported
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:26:13-36
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:27:13-36
 	android:theme
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:27:13-50
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:28:13-50
 	android:name
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:25:13-54
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:26:13-54
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:28:13-31:29
+ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:29:13-32:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:29:17-69
+ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:30:17-69
 	android:name
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:29:25-66
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:30:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:30:17-77
+ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:31:17-77
 	android:name
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:30:27-74
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:31:27-74
 receiver#com.migarage.worker.BootReceiver
-ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:44:9-50:20
+ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:45:9-51:20
 	android:exported
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:46:13-37
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:47:13-37
 	android:name
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:45:13-48
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:46:13-48
 intent-filter#action:name:android.intent.action.BOOT_COMPLETED
-ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:47:13-49:29
+ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:48:13-50:29
 action#android.intent.action.BOOT_COMPLETED
-ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:48:17-79
+ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:49:17-79
 	android:name
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:48:25-76
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:49:25-76
 meta-data#android.support.FILE_PROVIDER_PATHS
-ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:39:13-41:54
+ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:40:13-42:54
 	android:resource
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:41:17-51
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:42:17-51
 	android:name
-		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:40:17-67
+		ADDED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml:41:17-67
 uses-sdk
 INJECTED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\HernanBRAVO\Documents\AndroidStudioProjects\MiGarage\app\src\main\AndroidManifest.xml
@@ -851,10 +857,6 @@ ADDED from [androidx.room:room-runtime:2.6.1] C:\Users\HernanBRAVO\.gradle\cache
 		ADDED from [androidx.room:room-runtime:2.6.1] C:\Users\HernanBRAVO\.gradle\caches\8.13\transforms\f0b498acaaf3f75079b92865a14d83e8\transformed\room-runtime-2.6.1\AndroidManifest.xml:26:13-43
 	android:name
 		ADDED from [androidx.room:room-runtime:2.6.1] C:\Users\HernanBRAVO\.gradle\caches\8.13\transforms\f0b498acaaf3f75079b92865a14d83e8\transformed\room-runtime-2.6.1\AndroidManifest.xml:25:13-74
-uses-permission#android.permission.INTERNET
-ADDED from [com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\HernanBRAVO\.gradle\caches\8.13\transforms\d685877c1f7bcf24023813cf4bc4a7a1\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:26:5-67
-	android:name
-		ADDED from [com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\HernanBRAVO\.gradle\caches\8.13\transforms\d685877c1f7bcf24023813cf4bc4a7a1\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:26:22-64
 service#com.google.android.datatransport.runtime.backends.TransportBackendDiscovery
 ADDED from [com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\HernanBRAVO\.gradle\caches\8.13\transforms\d685877c1f7bcf24023813cf4bc4a7a1\transformed\jetified-transport-backend-cct-2.3.3\AndroidManifest.xml:29:9-35:19
 MERGED from [com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\HernanBRAVO\.gradle\caches\8.13\transforms\82e55ca5a0cd60550c32d6788ab7965d\transformed\jetified-transport-runtime-2.2.6\AndroidManifest.xml:36:9-38:40

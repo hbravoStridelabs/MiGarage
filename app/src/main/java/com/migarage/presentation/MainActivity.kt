@@ -28,6 +28,7 @@ import com.migarage.presentation.theme.Primary
 import com.migarage.presentation.theme.Surface
 import com.migarage.presentation.theme.TextPrimary
 import com.migarage.presentation.theme.TextSecondary
+import com.migarage.util.UpdateChecker
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,9 +36,20 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        checkForUpdates()
+
         setContent {
             MiGarageTheme {
                 MainScreen()
+            }
+        }
+    }
+
+    private fun checkForUpdates() {
+        UpdateChecker.checkForUpdates(this) { updateInfo ->
+            updateInfo?.let {
+                UpdateChecker.showUpdateDialog(this, it)
             }
         }
     }

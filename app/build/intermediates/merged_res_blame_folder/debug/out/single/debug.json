@@ -44,10 +44,6 @@
         "source": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-main-79:\\mipmap-mdpi\\ic_launcher.png"
     },
     {
-        "merged": "com.migarage.app-merged_res-77:/xml_file_paths.xml.flat",
-        "source": "com.migarage.app-main-79:/xml/file_paths.xml"
-    },
-    {
         "merged": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-merged_res-77:\\mipmap-xhdpi_ic_launcher.png.flat",
         "source": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-main-79:\\mipmap-xhdpi\\ic_launcher.png"
     },
@@ -66,5 +62,9 @@
     {
         "merged": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-merged_res-77:\\drawable_ic_launcher_foreground.xml.flat",
         "source": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-main-79:\\drawable\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.migarage.app-merged_res-77:/drawable_bg_garage_vehicles.png.flat",
+        "source": "com.migarage.app-main-79:/drawable/bg_garage_vehicles.png"
     }
 ]
