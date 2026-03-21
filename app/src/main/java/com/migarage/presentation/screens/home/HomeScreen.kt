@@ -125,94 +125,131 @@ private fun GreetingSection(
     mileage: Int?,
     onAddVehicleClick: () -> Unit
 ) {
-    Row(
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp),
-        verticalAlignment = Alignment.CenterVertically
+            .padding(horizontal = 20.dp)
     ) {
-        Box(
-            modifier = Modifier
-                .size(56.dp)
-                .clip(CircleShape)
-                .background(
-                    Brush.linearGradient(
-                        colors = listOf(Primary, PrimaryDark)
-                    )
-                ),
-            contentAlignment = Alignment.Center
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                imageVector = Icons.Default.DirectionsCar,
-                contentDescription = null,
-                tint = Color.White,
-                modifier = Modifier.size(28.dp)
-            )
-        }
-
-        Spacer(modifier = Modifier.width(16.dp))
-
-        Column(modifier = Modifier.weight(1f)) {
-            Text(
-                text = "Hola!",
-                style = MaterialTheme.typography.titleLarge,
-                color = TextSecondary
-            )
-            if (vehicleName != null) {
-                Text(
-                    text = vehicleName,
-                    style = MaterialTheme.typography.headlineSmall,
-                    color = TextPrimary,
-                    fontWeight = FontWeight.Bold
-                )
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    licensePlate?.let {
-                        Text(
-                            text = it,
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = Primary,
-                            fontWeight = FontWeight.SemiBold,
-                            letterSpacing = 1.sp
+            Box(
+                modifier = Modifier
+                    .size(56.dp)
+                    .clip(CircleShape)
+                    .background(
+                        Brush.linearGradient(
+                            colors = listOf(Primary, PrimaryDark)
                         )
-                        Text(
-                            text = " · ",
-                            color = TextSecondary
-                        )
-                    }
-                    mileage?.takeIf { it > 0 }?.let {
-                        Text(
-                            text = formatMileage(it) + " km",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = TextSecondary
-                        )
-                    }
-                }
-            } else {
-                Text(
-                    text = "Bienvenido a MiGarage",
-                    style = MaterialTheme.typography.headlineSmall,
-                    color = TextPrimary,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = "Agrega tu vehículo para comenzar",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = TextSecondary
-                )
-            }
-        }
-
-        if (vehicleName == null) {
-            FilledIconButton(
-                onClick = onAddVehicleClick,
-                colors = IconButtonDefaults.filledIconButtonColors(
-                    containerColor = Primary
-                )
+                    ),
+                contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Agregar vehículo",
-                    tint = Color.White
+                    imageVector = Icons.Default.DirectionsCar,
+                    contentDescription = null,
+                    tint = Color.White,
+                    modifier = Modifier.size(28.dp)
+                )
+            }
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = "Hola! 👋",
+                    style = MaterialTheme.typography.titleLarge,
+                    color = TextSecondary
+                )
+                if (vehicleName != null) {
+                    Text(
+                        text = vehicleName,
+                        style = MaterialTheme.typography.headlineSmall,
+                        color = TextPrimary,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        licensePlate?.let {
+                            Text(
+                                text = it,
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = Primary,
+                                fontWeight = FontWeight.SemiBold,
+                                letterSpacing = 1.sp
+                            )
+                            Text(
+                                text = " · ",
+                                color = TextSecondary
+                            )
+                        }
+                        mileage?.takeIf { it > 0 }?.let {
+                            Text(
+                                text = formatMileage(it) + " km",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = TextSecondary
+                            )
+                        }
+                    }
+                } else {
+                    Text(
+                        text = "Bienvenido a MiGarage",
+                        style = MaterialTheme.typography.headlineSmall,
+                        color = TextPrimary,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = "Agrega tu vehículo para comenzar",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = TextSecondary
+                    )
+                }
+            }
+
+            if (vehicleName == null) {
+                FilledIconButton(
+                    onClick = onAddVehicleClick,
+                    colors = IconButtonDefaults.filledIconButtonColors(
+                        containerColor = Primary
+                    )
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Agregar vehículo",
+                        tint = Color.White
+                    )
+                }
+            }
+        }
+        
+        // Status bar
+        if (vehicleName != null) {
+            Spacer(modifier = Modifier.height(12.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(Surface)
+                    .padding(12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Default.CheckCircle,
+                    contentDescription = null,
+                    tint = Success,
+                    modifier = Modifier.size(20.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = "Todo en orden",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = TextPrimary
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                Icon(
+                    imageVector = Icons.Default.ChevronRight,
+                    contentDescription = null,
+                    tint = TextSecondary,
+                    modifier = Modifier.size(20.dp)
                 )
             }
         }
@@ -225,27 +262,42 @@ private fun NoVehicleCard(onClick: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 20.dp)
-            .height(280.dp)
+            .height(320.dp)
+            .clip(RoundedCornerShape(24.dp))
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.bg_welcome),
-            contentDescription = "Garage",
-            modifier = Modifier
-                .fillMaxSize()
-                .clip(RoundedCornerShape(20.dp)),
-            contentScale = ContentScale.Crop
-        )
-        
+        // Gradient background as primary design
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .clip(RoundedCornerShape(20.dp))
+                .background(
+                    Brush.verticalGradient(
+                        colors = listOf(
+                            Primary.copy(alpha = 0.3f),
+                            PrimaryDark.copy(alpha = 0.15f),
+                            Background
+                        )
+                    )
+                )
+        )
+        
+        // Background image with overlay
+        Image(
+            painter = painterResource(id = R.drawable.bg_welcome),
+            contentDescription = "Garage",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop,
+            alpha = 0.3f
+        )
+        
+        // Dark overlay for readability
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
                 .background(
                     Brush.verticalGradient(
                         colors = listOf(
                             Color.Transparent,
-                            Background.copy(alpha = 0.7f),
-                            Background.copy(alpha = 0.95f)
+                            Background.copy(alpha = 0.8f)
                         )
                     )
                 )
@@ -255,36 +307,58 @@ private fun NoVehicleCard(onClick: () -> Unit) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(24.dp),
-            verticalArrangement = Arrangement.Bottom,
+            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Spacer(modifier = Modifier.weight(1f))
+            
+            Icon(
+                imageVector = Icons.Default.DirectionsCar,
+                contentDescription = null,
+                tint = Primary,
+                modifier = Modifier.size(80.dp)
+            )
+            
+            Spacer(modifier = Modifier.height(16.dp))
+            
             Text(
-                text = "Sin vehículo registrado",
-                style = MaterialTheme.typography.titleLarge,
+                text = "Bienvenido a MiGarage",
+                style = MaterialTheme.typography.headlineSmall,
                 color = TextPrimary,
                 fontWeight = FontWeight.Bold
             )
+            
             Spacer(modifier = Modifier.height(8.dp))
+            
             Text(
-                text = "Agrega tu auto para mantener\ntoda su documentación al día",
+                text = "Registra tu vehículo y mantén\ntoda su documentación al día",
                 style = MaterialTheme.typography.bodyMedium,
                 color = TextSecondary,
                 textAlign = TextAlign.Center
             )
-            Spacer(modifier = Modifier.height(16.dp))
+            
+            Spacer(modifier = Modifier.height(24.dp))
+            
             Button(
                 onClick = onClick,
                 colors = ButtonDefaults.buttonColors(containerColor = Primary),
-                shape = RoundedCornerShape(12.dp)
+                shape = RoundedCornerShape(16.dp),
+                modifier = Modifier.height(52.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = null,
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier.size(24.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("Agregar Vehículo")
+                Text(
+                    text = "Agregar Mi Primer Vehículo",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold
+                )
             }
+            
+            Spacer(modifier = Modifier.weight(1f))
         }
     }
 }
@@ -374,36 +448,48 @@ private fun QuickStatsRow(
     onDocumentsClick: () -> Unit,
     onMaintenanceClick: () -> Unit
 ) {
-    Row(
+    Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 20.dp),
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        StatCard(
-            modifier = Modifier.weight(1f),
-            icon = Icons.Default.Description,
-            value = "$documentCount",
-            label = "Documentos",
-            color = Primary,
-            onClick = onDocumentsClick
+        Text(
+            text = "Resumen",
+            style = MaterialTheme.typography.titleMedium,
+            color = TextPrimary,
+            fontWeight = FontWeight.SemiBold
         )
-        StatCard(
-            modifier = Modifier.weight(1f),
-            icon = Icons.Default.Build,
-            value = "$maintenanceCount",
-            label = "Servicios",
-            color = Success,
-            onClick = onMaintenanceClick
-        )
-        StatCard(
-            modifier = Modifier.weight(1f),
-            icon = Icons.Default.Speed,
-            value = formatMileage(mileage),
-            label = "Kilómetros",
-            color = BlueAccent,
-            onClick = {}
-        )
+        
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            StatCard(
+                modifier = Modifier.weight(1f),
+                icon = Icons.Default.Description,
+                value = "$documentCount",
+                label = "Documentos",
+                color = Primary,
+                onClick = onDocumentsClick
+            )
+            StatCard(
+                modifier = Modifier.weight(1f),
+                icon = Icons.Default.Build,
+                value = "$maintenanceCount",
+                label = "Servicios",
+                color = Success,
+                onClick = onMaintenanceClick
+            )
+            StatCard(
+                modifier = Modifier.weight(1f),
+                icon = Icons.Default.Speed,
+                value = formatMileage(mileage),
+                label = "Kilómetros",
+                color = BlueAccent,
+                onClick = {}
+            )
+        }
     }
 }
 

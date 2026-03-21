@@ -8,6 +8,10 @@
         "source": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-main-79:\\mipmap-xxhdpi\\ic_launcher.png"
     },
     {
+        "merged": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-merged_res-77:\\drawable_bg_welcome.png.flat",
+        "source": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-main-79:\\drawable\\bg_welcome.png"
+    },
+    {
         "merged": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-merged_res-77:\\mipmap-xxxhdpi_ic_launcher.png.flat",
         "source": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-main-79:\\mipmap-xxxhdpi\\ic_launcher.png"
     },
