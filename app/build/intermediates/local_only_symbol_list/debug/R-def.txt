@@ -12,6 +12,7 @@ color text_primary
 color text_secondary
 color warning
 drawable bg_garage_vehicles
+drawable bg_welcome
 drawable ic_launcher_foreground
 mipmap ic_launcher
 mipmap ic_launcher_round
