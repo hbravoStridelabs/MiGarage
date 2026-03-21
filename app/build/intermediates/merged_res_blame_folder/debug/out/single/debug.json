@@ -1,0 +1,70 @@
+[
+    {
+        "merged": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-merged_res-77:\\mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-main-79:\\mipmap-xxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-merged_res-77:\\mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-main-79:\\mipmap-xxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-merged_res-77:\\mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-main-79:\\mipmap-xxxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-merged_res-77:\\mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-main-79:\\mipmap-hdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-merged_res-77:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-main-79:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-merged_res-77:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-main-79:\\xml\\data_extraction_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-merged_res-77:\\mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-main-79:\\mipmap-xxxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-merged_res-77:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-main-79:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-merged_res-77:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-main-79:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-merged_res-77:\\xml_file_paths.xml.flat",
+        "source": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-main-79:\\xml\\file_paths.xml"
+    },
+    {
+        "merged": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-merged_res-77:\\mipmap-mdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-main-79:\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "com.migarage.app-merged_res-77:/xml_file_paths.xml.flat",
+        "source": "com.migarage.app-main-79:/xml/file_paths.xml"
+    },
+    {
+        "merged": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-merged_res-77:\\mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-main-79:\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-merged_res-77:\\mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-main-79:\\mipmap-mdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-merged_res-77:\\mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-main-79:\\mipmap-xhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-merged_res-77:\\mipmap-hdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-main-79:\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-merged_res-77:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\HernanBRAVO\\.gradle\\daemon\\8.13\\com.migarage.app-main-79:\\drawable\\ic_launcher_foreground.xml"
+    }
+]

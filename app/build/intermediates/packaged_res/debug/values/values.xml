@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background">#0D0D0D</color>
+    <color name="error">#F44336</color>
+    <color name="primary">#FF6B35</color>
+    <color name="primary_dark">#E55A2B</color>
+    <color name="secondary">#1A1A2E</color>
+    <color name="success">#4CAF50</color>
+    <color name="surface">#1A1A1A</color>
+    <color name="surface_light">#2D2D2D</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B0B0B0</color>
+    <color name="warning">#FFC107</color>
+    <string name="app_name">MiGarage</string>
+    <style name="Theme.MiGarage" parent="android:Theme.Material.NoActionBar">
+        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:navigationBarColor">@color/background</item>
+        <item name="android:windowBackground">@color/background</item>
+    </style>
+</resources>
