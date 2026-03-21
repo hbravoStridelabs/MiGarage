@@ -47,6 +47,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun checkForUpdates() {
+        // Update checker - only runs once per app session to avoid loops
         UpdateChecker.checkForUpdates(this) { updateInfo ->
             updateInfo?.let {
                 UpdateChecker.showUpdateDialog(this, it)
