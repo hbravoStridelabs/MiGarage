@@ -166,7 +166,10 @@ fun AddVehicleScreen(
                         fontWeight = FontWeight.SemiBold
                     )
 
-                    Box(modifier = Modifier.fillMaxWidth()) {
+                    ExposedDropdownMenuBox(
+                        expanded = showBrandDropdown,
+                        onExpandedChange = { showBrandDropdown = it }
+                    ) {
                         OutlinedTextField(
                             value = brand,
                             onValueChange = {
@@ -175,27 +178,16 @@ fun AddVehicleScreen(
                                 model = ""
                                 modelSearchQuery = ""
                                 showModelDropdown = false
+                                showBrandDropdown = true
                             },
                             label = { Text("Marca") },
                             placeholder = { Text("Escribe para buscar...") },
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .clickable { showBrandDropdown = brand.isNotEmpty() },
+                                .menuAnchor(),
                             colors = textFieldColors(),
                             trailingIcon = {
-                                if (brand.isNotEmpty()) {
-                                    IconButton(onClick = {
-                                        brand = ""
-                                        brandSearchQuery = ""
-                                        showBrandDropdown = false
-                                    }) {
-                                        Icon(
-                                            imageVector = Icons.Default.Clear,
-                                            contentDescription = "Limpiar",
-                                            tint = TextSecondary
-                                        )
-                                    }
-                                }
+                                ExposedDropdownMenuDefaults.TrailingIcon(expanded = showBrandDropdown)
                             },
                             leadingIcon = {
                                 Icon(
@@ -206,60 +198,43 @@ fun AddVehicleScreen(
                             },
                             singleLine = true
                         )
-                        DropdownMenu(
+                        ExposedDropdownMenu(
                             expanded = showBrandDropdown,
-                            onDismissRequest = { showBrandDropdown = false },
-                            modifier = Modifier.fillMaxWidth()
+                            onDismissRequest = { showBrandDropdown = false }
                         ) {
-                            if (filteredBrands.isEmpty()) {
+                            filteredBrands.take(20).forEach { brandItem ->
                                 DropdownMenuItem(
-                                    text = { Text("Sin resultados") },
-                                    onClick = { showBrandDropdown = false },
-                                    enabled = false
+                                    text = { Text(brandItem) },
+                                    onClick = {
+                                        brand = brandItem
+                                        brandSearchQuery = brandItem
+                                        showBrandDropdown = false
+                                    }
                                 )
-                            } else {
-                                filteredBrands.take(20).forEach { brandItem ->
-                                    DropdownMenuItem(
-                                        text = { Text(brandItem) },
-                                        onClick = {
-                                            brand = brandItem
-                                            brandSearchQuery = brandItem
-                                            showBrandDropdown = false
-                                        }
-                                    )
-                                }
                             }
                         }
                     }
 
-                    Box(modifier = Modifier.fillMaxWidth()) {
+                    ExposedDropdownMenuBox(
+                        expanded = showModelDropdown,
+                        onExpandedChange = { showModelDropdown = it }
+                    ) {
                         OutlinedTextField(
                             value = model,
                             onValueChange = {
                                 model = it
                                 modelSearchQuery = it
+                                showModelDropdown = true
                             },
                             label = { Text("Modelo") },
                             placeholder = { Text("Escribe para buscar...") },
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .clickable { showModelDropdown = model.isNotEmpty() },
+                                .menuAnchor(),
                             colors = textFieldColors(),
                             enabled = brand.isNotEmpty(),
                             trailingIcon = {
-                                if (model.isNotEmpty()) {
-                                    IconButton(onClick = {
-                                        model = ""
-                                        modelSearchQuery = ""
-                                        showModelDropdown = false
-                                    }) {
-                                        Icon(
-                                            imageVector = Icons.Default.Clear,
-                                            contentDescription = "Limpiar",
-                                            tint = TextSecondary
-                                        )
-                                    }
-                                }
+                                ExposedDropdownMenuDefaults.TrailingIcon(expanded = showModelDropdown)
                             },
                             leadingIcon = {
                                 if (brand.isNotEmpty()) {
@@ -272,28 +247,19 @@ fun AddVehicleScreen(
                             },
                             singleLine = true
                         )
-                        DropdownMenu(
+                        ExposedDropdownMenu(
                             expanded = showModelDropdown,
-                            onDismissRequest = { showModelDropdown = false },
-                            modifier = Modifier.fillMaxWidth()
+                            onDismissRequest = { showModelDropdown = false }
                         ) {
-                            if (filteredModels.isEmpty()) {
+                            filteredModels.take(20).forEach { modelItem ->
                                 DropdownMenuItem(
-                                    text = { Text("Sin resultados") },
-                                    onClick = { showModelDropdown = false },
-                                    enabled = false
+                                    text = { Text(modelItem) },
+                                    onClick = {
+                                        model = modelItem
+                                        modelSearchQuery = modelItem
+                                        showModelDropdown = false
+                                    }
                                 )
-                            } else {
-                                filteredModels.take(20).forEach { modelItem ->
-                                    DropdownMenuItem(
-                                        text = { Text(modelItem) },
-                                        onClick = {
-                                            model = modelItem
-                                            modelSearchQuery = modelItem
-                                            showModelDropdown = false
-                                        }
-                                    )
-                                }
                             }
                         }
                     }
