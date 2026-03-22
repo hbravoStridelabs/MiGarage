@@ -166,12 +166,7 @@ fun AddVehicleScreen(
                         fontWeight = FontWeight.SemiBold
                     )
 
-                    ExposedDropdownMenuBox(
-                        expanded = showBrandDropdown,
-                        onExpandedChange = { 
-                            if (brand.isNotEmpty()) showBrandDropdown = it
-                        }
-                    ) {
+                    Box(modifier = Modifier.fillMaxWidth()) {
                         OutlinedTextField(
                             value = brand,
                             onValueChange = {
@@ -180,16 +175,20 @@ fun AddVehicleScreen(
                                 model = ""
                                 modelSearchQuery = ""
                                 showModelDropdown = false
-                                showBrandDropdown = true
+                                showBrandDropdown = it.isNotEmpty()
                             },
                             label = { Text("Marca") },
-                            placeholder = { Text("Escribe para buscar...") },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .menuAnchor(),
+                            placeholder = { Text("Escribe o toca la flecha") },
+                            modifier = Modifier.fillMaxWidth(),
                             colors = textFieldColors(),
                             trailingIcon = {
-                                ExposedDropdownMenuDefaults.TrailingIcon(expanded = showBrandDropdown)
+                                IconButton(onClick = { showBrandDropdown = true }) {
+                                    Icon(
+                                        imageVector = Icons.Default.ArrowDropDown,
+                                        contentDescription = "Ver opciones",
+                                        tint = TextSecondary
+                                    )
+                                }
                             },
                             leadingIcon = {
                                 Icon(
@@ -200,9 +199,10 @@ fun AddVehicleScreen(
                             },
                             singleLine = true
                         )
-                        ExposedDropdownMenu(
+                        DropdownMenu(
                             expanded = showBrandDropdown,
-                            onDismissRequest = { showBrandDropdown = false }
+                            onDismissRequest = { showBrandDropdown = false },
+                            modifier = Modifier.fillMaxWidth()
                         ) {
                             if (filteredBrands.isEmpty()) {
                                 DropdownMenuItem(
@@ -225,26 +225,29 @@ fun AddVehicleScreen(
                         }
                     }
 
-                    ExposedDropdownMenuBox(
-                        expanded = showModelDropdown,
-                        onExpandedChange = { showModelDropdown = it }
-                    ) {
+                    Box(modifier = Modifier.fillMaxWidth()) {
                         OutlinedTextField(
                             value = model,
                             onValueChange = {
                                 model = it
                                 modelSearchQuery = it
-                                showModelDropdown = true
+                                showModelDropdown = it.isNotEmpty()
                             },
                             label = { Text("Modelo") },
-                            placeholder = { Text("Escribe para buscar...") },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .menuAnchor(),
+                            placeholder = { Text("Escribe o toca la flecha") },
+                            modifier = Modifier.fillMaxWidth(),
                             colors = textFieldColors(),
                             enabled = brand.isNotEmpty(),
                             trailingIcon = {
-                                ExposedDropdownMenuDefaults.TrailingIcon(expanded = showModelDropdown)
+                                if (brand.isNotEmpty()) {
+                                    IconButton(onClick = { showModelDropdown = true }) {
+                                        Icon(
+                                            imageVector = Icons.Default.ArrowDropDown,
+                                            contentDescription = "Ver opciones",
+                                            tint = TextSecondary
+                                        )
+                                    }
+                                }
                             },
                             leadingIcon = {
                                 if (brand.isNotEmpty()) {
@@ -257,19 +260,28 @@ fun AddVehicleScreen(
                             },
                             singleLine = true
                         )
-                        ExposedDropdownMenu(
+                        DropdownMenu(
                             expanded = showModelDropdown,
-                            onDismissRequest = { showModelDropdown = false }
+                            onDismissRequest = { showModelDropdown = false },
+                            modifier = Modifier.fillMaxWidth()
                         ) {
-                            filteredModels.take(20).forEach { modelItem ->
+                            if (filteredModels.isEmpty()) {
                                 DropdownMenuItem(
-                                    text = { Text(modelItem) },
-                                    onClick = {
-                                        model = modelItem
-                                        modelSearchQuery = modelItem
-                                        showModelDropdown = false
-                                    }
+                                    text = { Text("Sin resultados") },
+                                    onClick = { showModelDropdown = false },
+                                    enabled = false
                                 )
+                            } else {
+                                filteredModels.take(20).forEach { modelItem ->
+                                    DropdownMenuItem(
+                                        text = { Text(modelItem) },
+                                        onClick = {
+                                            model = modelItem
+                                            modelSearchQuery = modelItem
+                                            showModelDropdown = false
+                                        }
+                                    )
+                                }
                             }
                         }
                     }
