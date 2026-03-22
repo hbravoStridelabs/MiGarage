@@ -13,7 +13,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
+
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
@@ -176,15 +178,23 @@ fun AddVehicleScreen(
                             },
                             label = { Text("Marca") },
                             placeholder = { Text("Escribe para buscar...") },
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { showBrandDropdown = brand.isNotEmpty() },
                             colors = textFieldColors(),
                             trailingIcon = {
-                                IconButton(onClick = { showBrandDropdown = brand.isNotEmpty() && !showBrandDropdown }) {
-                                    Icon(
-                                        imageVector = if (showBrandDropdown) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
-                                        contentDescription = null,
-                                        tint = TextSecondary
-                                    )
+                                if (brand.isNotEmpty()) {
+                                    IconButton(onClick = {
+                                        brand = ""
+                                        brandSearchQuery = ""
+                                        showBrandDropdown = false
+                                    }) {
+                                        Icon(
+                                            imageVector = Icons.Default.Clear,
+                                            contentDescription = "Limpiar",
+                                            tint = TextSecondary
+                                        )
+                                    }
                                 }
                             },
                             leadingIcon = {
@@ -199,7 +209,7 @@ fun AddVehicleScreen(
                         DropdownMenu(
                             expanded = showBrandDropdown,
                             onDismissRequest = { showBrandDropdown = false },
-                            modifier = Modifier.fillMaxWidth(0.9f)
+                            modifier = Modifier.fillMaxWidth()
                         ) {
                             if (filteredBrands.isEmpty()) {
                                 DropdownMenuItem(
@@ -218,13 +228,6 @@ fun AddVehicleScreen(
                                         }
                                     )
                                 }
-                                if (filteredBrands.size > 20) {
-                                    DropdownMenuItem(
-                                        text = { Text("+ ${filteredBrands.size - 20} mas resultados") },
-                                        onClick = { },
-                                        enabled = false
-                                    )
-                                }
                             }
                         }
                     }
@@ -238,15 +241,21 @@ fun AddVehicleScreen(
                             },
                             label = { Text("Modelo") },
                             placeholder = { Text("Escribe para buscar...") },
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { showModelDropdown = model.isNotEmpty() },
                             colors = textFieldColors(),
                             enabled = brand.isNotEmpty(),
                             trailingIcon = {
-                                if (brand.isNotEmpty()) {
-                                    IconButton(onClick = { showModelDropdown = model.isNotEmpty() && !showModelDropdown }) {
+                                if (model.isNotEmpty()) {
+                                    IconButton(onClick = {
+                                        model = ""
+                                        modelSearchQuery = ""
+                                        showModelDropdown = false
+                                    }) {
                                         Icon(
-                                            imageVector = if (showModelDropdown) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
-                                            contentDescription = null,
+                                            imageVector = Icons.Default.Clear,
+                                            contentDescription = "Limpiar",
                                             tint = TextSecondary
                                         )
                                     }
@@ -266,7 +275,7 @@ fun AddVehicleScreen(
                         DropdownMenu(
                             expanded = showModelDropdown,
                             onDismissRequest = { showModelDropdown = false },
-                            modifier = Modifier.fillMaxWidth(0.9f)
+                            modifier = Modifier.fillMaxWidth()
                         ) {
                             if (filteredModels.isEmpty()) {
                                 DropdownMenuItem(
@@ -283,13 +292,6 @@ fun AddVehicleScreen(
                                             modelSearchQuery = modelItem
                                             showModelDropdown = false
                                         }
-                                    )
-                                }
-                                if (filteredModels.size > 20) {
-                                    DropdownMenuItem(
-                                        text = { Text("+ ${filteredModels.size - 20} mas resultados") },
-                                        onClick = { },
-                                        enabled = false
                                     )
                                 }
                             }
