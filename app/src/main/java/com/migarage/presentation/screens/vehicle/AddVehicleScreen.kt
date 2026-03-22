@@ -33,6 +33,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.FileProvider
+import com.migarage.BuildConfig
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.migarage.data.CarBrandsData
 import com.migarage.presentation.screens.profile.EditVehicleViewModel
@@ -126,6 +127,21 @@ fun AddVehicleScreen(
                             tint = TextPrimary
                         )
                     }
+                },
+                actions = {
+                    Surface(
+                        color = Primary.copy(alpha = 0.15f),
+                        shape = RoundedCornerShape(6.dp)
+                    ) {
+                        Text(
+                            text = "v${BuildConfig.VERSION_NAME}",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = Primary,
+                            fontWeight = FontWeight.SemiBold,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                        )
+                    }
+                    Spacer(modifier = Modifier.width(12.dp))
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = Background)
             )
