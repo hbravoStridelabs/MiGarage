@@ -25,8 +25,6 @@ object UpdateChecker {
     private const val KEY_DISMISSED_VERSION = "dismissed_version"
     private const val KEY_LAST_CHECK = "last_check_time"
 
-    private var hasShownUpdateDialogThisSession = false
-
     private fun getPrefs(context: Context): SharedPreferences {
         return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
@@ -67,9 +65,8 @@ object UpdateChecker {
                         ?.optJSONObject(0)
                         ?.optString("browser_download_url") ?: ""
 
-                    if (isNewerVersion(versionName, currentVersion)) {
+                    if (versionName.isNotEmpty() && isNewerVersion(versionName, currentVersion) && downloadUrl.isNotEmpty()) {
                         withContext(Dispatchers.Main) {
-                            hasShownUpdateDialogThisSession = true
                             showUpdateDialog(context, UpdateInfo(versionName, downloadUrl))
                         }
                     }
