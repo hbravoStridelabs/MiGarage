@@ -19,7 +19,8 @@ object UpdateChecker {
 
     private const val REPO_OWNER = "hbravoStridelabs"
     private const val REPO_NAME = "MiGarage"
-    private const val VERSION_URL = "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases/latest"
+    private const val TAGS_URL = "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/tags"
+    private const val RELEASE_URL = "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases/latest"
     private const val CHECK_INTERVAL_MS = 30 * 60 * 1000L // 30 minutes
     private const val PREFS_NAME = "migarage_update_prefs"
     private const val KEY_DISMISSED_VERSION = "dismissed_version"
@@ -48,7 +49,7 @@ object UpdateChecker {
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val url = URL(VERSION_URL)
+                val url = URL(TAGS_URL)
                 val connection = url.openConnection() as HttpURLConnection
                 connection.requestMethod = "GET"
                 connection.setRequestProperty("Accept", "application/json")
@@ -57,17 +58,40 @@ object UpdateChecker {
 
                 if (connection.responseCode == HttpURLConnection.HTTP_OK) {
                     val response = connection.inputStream.bufferedReader().use { it.readText() }
-                    val json = JSONObject(response)
-
-                    val tagName = json.optString("tag_name", "")
-                    val versionName = tagName.removePrefix("v")
-                    val downloadUrl = json.optJSONArray("assets")
-                        ?.optJSONObject(0)
-                        ?.optString("browser_download_url") ?: ""
-
-                    if (versionName.isNotEmpty() && isNewerVersion(versionName, currentVersion) && downloadUrl.isNotEmpty()) {
+                    
+                    val latestTag = findLatestVersionTag(response)
+                    
+                    if (latestTag.isNullOrEmpty()) {
+                        return@launch
+                    }
+                    
+                    if (!isNewerVersion(latestTag, currentVersion)) {
+                        return@launch
+                    }
+                    
+                    val releaseUrl = URL(RELEASE_URL)
+                    val releaseConnection = releaseUrl.openConnection() as HttpURLConnection
+                    releaseConnection.requestMethod = "GET"
+                    releaseConnection.setRequestProperty("Accept", "application/json")
+                    releaseConnection.connectTimeout = 10000
+                    releaseConnection.readTimeout = 10000
+                    
+                    var downloadUrl = ""
+                    if (releaseConnection.responseCode == HttpURLConnection.HTTP_OK) {
+                        val releaseResponse = releaseConnection.inputStream.bufferedReader().use { it.readText() }
+                        val releaseJson = JSONObject(releaseResponse)
+                        val releaseTag = releaseJson.optString("tag_name", "").removePrefix("v")
+                        
+                        if (releaseTag == latestTag) {
+                            downloadUrl = releaseJson.optJSONArray("assets")
+                                ?.optJSONObject(0)
+                                ?.optString("browser_download_url") ?: ""
+                        }
+                    }
+                    
+                    if (downloadUrl.isNotEmpty()) {
                         withContext(Dispatchers.Main) {
-                            showUpdateDialog(context, UpdateInfo(versionName, downloadUrl))
+                            showUpdateDialog(context, UpdateInfo(latestTag, downloadUrl))
                         }
                     }
                 }
@@ -75,6 +99,32 @@ object UpdateChecker {
                 // Silent fail
             }
         }
+    }
+    
+    private fun findLatestVersionTag(tagsResponse: String): String? {
+        val versionTags = mutableListOf<String>()
+        val regex = Regex(""""name":\s*"v?(\d+\.\d+\.\d+)" """)
+        val matches = regex.findAll(tagsResponse)
+        for (match in matches) {
+            val version = match.groupValues[1]
+            versionTags.add(version)
+        }
+        
+        if (versionTags.isEmpty()) return null
+        
+        return versionTags.maxWithOrNull { a, b -> compareVersions(a, b) }
+    }
+    
+    private fun compareVersions(a: String, b: String): Int {
+        val aParts = a.split(".").map { it.toIntOrNull() ?: 0 }
+        val bParts = b.split(".").map { it.toIntOrNull() ?: 0 }
+        for (i in 0 until maxOf(aParts.size, bParts.size)) {
+            val aPart = aParts.getOrElse(i) { 0 }
+            val bPart = bParts.getOrElse(i) { 0 }
+            if (aPart > bPart) return 1
+            if (aPart < bPart) return -1
+        }
+        return 0
     }
 
     private fun isNewerVersion(newVersion: String, currentVersion: String): Boolean {
