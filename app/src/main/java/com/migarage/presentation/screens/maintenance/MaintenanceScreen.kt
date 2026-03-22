@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.migarage.BuildConfig
 import com.migarage.domain.model.MaintenanceRecord
 import com.migarage.presentation.theme.*
 import java.time.format.DateTimeFormatter
@@ -31,6 +32,21 @@ fun MaintenanceScreen(
         topBar = {
             TopAppBar(
                 title = { Text("Mantenimiento", color = TextPrimary) },
+                actions = {
+                    Surface(
+                        color = Primary.copy(alpha = 0.15f),
+                        shape = RoundedCornerShape(6.dp)
+                    ) {
+                        Text(
+                            text = "v${BuildConfig.VERSION_NAME}",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = Primary,
+                            fontWeight = FontWeight.SemiBold,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                        )
+                    }
+                    Spacer(modifier = Modifier.width(12.dp))
+                },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = Background)
             )
         },

@@ -39,6 +39,21 @@ fun ProfileScreen(
         topBar = {
             TopAppBar(
                 title = { Text("Perfil", color = TextPrimary) },
+                actions = {
+                    Surface(
+                        color = Primary.copy(alpha = 0.15f),
+                        shape = RoundedCornerShape(6.dp)
+                    ) {
+                        Text(
+                            text = "v${BuildConfig.VERSION_NAME}",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = Primary,
+                            fontWeight = FontWeight.SemiBold,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                        )
+                    }
+                    Spacer(modifier = Modifier.width(12.dp))
+                },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = Background)
             )
         },
