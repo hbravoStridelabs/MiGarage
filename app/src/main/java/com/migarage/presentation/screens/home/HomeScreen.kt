@@ -27,6 +27,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.migarage.BuildConfig
 import com.migarage.R
 import com.migarage.domain.model.Alert
 import com.migarage.domain.model.Document
@@ -156,11 +157,26 @@ private fun GreetingSection(
             Spacer(modifier = Modifier.width(16.dp))
 
             Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = "Hola! 👋",
-                    style = MaterialTheme.typography.titleLarge,
-                    color = TextSecondary
-                )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = "Hola!",
+                        style = MaterialTheme.typography.titleLarge,
+                        color = TextSecondary
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                    Surface(
+                        color = Primary.copy(alpha = 0.2f),
+                        shape = RoundedCornerShape(8.dp)
+                    ) {
+                        Text(
+                            text = "v${BuildConfig.VERSION_NAME}",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = Primary,
+                            fontWeight = FontWeight.SemiBold,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                        )
+                    }
+                }
                 if (vehicleName != null) {
                     Text(
                         text = vehicleName,
@@ -258,107 +274,59 @@ private fun GreetingSection(
 
 @Composable
 private fun NoVehicleCard(onClick: () -> Unit) {
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp)
-            .height(320.dp)
-            .clip(RoundedCornerShape(24.dp))
+            .padding(horizontal = 16.dp)
     ) {
-        // Gradient background as primary design
+        Spacer(modifier = Modifier.height(8.dp))
+        
         Box(
             modifier = Modifier
-                .fillMaxSize()
-                .background(
-                    Brush.verticalGradient(
-                        colors = listOf(
-                            Primary.copy(alpha = 0.3f),
-                            PrimaryDark.copy(alpha = 0.15f),
-                            Background
-                        )
-                    )
-                )
-        )
-        
-        // Background image with overlay
-        Image(
-            painter = painterResource(id = R.drawable.bg_welcome),
-            contentDescription = "Garage",
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop,
-            alpha = 0.3f
-        )
-        
-        // Dark overlay for readability
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(
-                    Brush.verticalGradient(
-                        colors = listOf(
-                            Color.Transparent,
-                            Background.copy(alpha = 0.8f)
-                        )
-                    )
-                )
-        )
-        
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(24.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+                .fillMaxWidth()
+                .height(500.dp)
+                .clip(RoundedCornerShape(20.dp))
         ) {
-            Spacer(modifier = Modifier.weight(1f))
-            
+            Image(
+                painter = painterResource(id = R.drawable.bg_welcome),
+                contentDescription = "Garage",
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop,
+                alignment = Alignment.TopCenter,
+                alpha = 0.95f
+            )
+        }
+        
+        Spacer(modifier = Modifier.height(16.dp))
+        
+        Text(
+            text = "Bienvenido a MiGarage",
+            style = MaterialTheme.typography.headlineSmall,
+            color = TextPrimary,
+            fontWeight = FontWeight.Bold
+        )
+        
+        Spacer(modifier = Modifier.height(16.dp))
+        
+        Button(
+            onClick = onClick,
+            colors = ButtonDefaults.buttonColors(containerColor = Primary),
+            shape = RoundedCornerShape(16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp)
+        ) {
             Icon(
-                imageVector = Icons.Default.DirectionsCar,
+                imageVector = Icons.Default.Add,
                 contentDescription = null,
-                tint = Primary,
-                modifier = Modifier.size(80.dp)
+                modifier = Modifier.size(26.dp)
             )
-            
-            Spacer(modifier = Modifier.height(16.dp))
-            
+            Spacer(modifier = Modifier.width(12.dp))
             Text(
-                text = "Bienvenido a MiGarage",
-                style = MaterialTheme.typography.headlineSmall,
-                color = TextPrimary,
-                fontWeight = FontWeight.Bold
+                text = "Agregar Mi Primer Vehículo",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold
             )
-            
-            Spacer(modifier = Modifier.height(8.dp))
-            
-            Text(
-                text = "Registra tu vehículo y mantén\ntoda su documentación al día",
-                style = MaterialTheme.typography.bodyMedium,
-                color = TextSecondary,
-                textAlign = TextAlign.Center
-            )
-            
-            Spacer(modifier = Modifier.height(24.dp))
-            
-            Button(
-                onClick = onClick,
-                colors = ButtonDefaults.buttonColors(containerColor = Primary),
-                shape = RoundedCornerShape(16.dp),
-                modifier = Modifier.height(52.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = null,
-                    modifier = Modifier.size(24.dp)
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = "Agregar Mi Primer Vehículo",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.SemiBold
-                )
-            }
-            
-            Spacer(modifier = Modifier.weight(1f))
         }
     }
 }

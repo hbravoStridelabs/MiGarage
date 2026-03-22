@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.FileProvider
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.migarage.data.CarBrandsData
 import com.migarage.presentation.screens.profile.EditVehicleViewModel
 import com.migarage.presentation.theme.*
 import java.io.File
@@ -57,6 +58,21 @@ fun AddVehicleScreen(
     var licensePlateImageUri by remember { mutableStateOf<Uri?>(null) }
     var currentPhotoUri by remember { mutableStateOf<Uri?>(null) }
     var showImageOptions by remember { mutableStateOf(false) }
+    
+    var showBrandDropdown by remember { mutableStateOf(false) }
+    var showModelDropdown by remember { mutableStateOf(false) }
+    var brandSearchQuery by remember { mutableStateOf("") }
+    var modelSearchQuery by remember { mutableStateOf("") }
+    val brands = CarBrandsData.brands
+    val filteredBrands = remember(brandSearchQuery) {
+        if (brandSearchQuery.isEmpty()) brands
+        else brands.filter { it.contains(brandSearchQuery, ignoreCase = true) }
+    }
+    val modelsForBrand = remember(brand) { CarBrandsData.getModelsForBrand(brand) }
+    val filteredModels = remember(modelSearchQuery, modelsForBrand) {
+        if (modelSearchQuery.isEmpty()) modelsForBrand
+        else modelsForBrand.filter { it.contains(modelSearchQuery, ignoreCase = true) }
+    }
 
     val cameraLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.TakePicture()
@@ -148,47 +164,137 @@ fun AddVehicleScreen(
                         fontWeight = FontWeight.SemiBold
                     )
 
-                    OutlinedTextField(
-                        value = brand,
-                        onValueChange = { brand = it },
-                        label = { Text("Marca") },
-                        placeholder = { Text("Ej: Toyota, Hyundai, Chevrolet") },
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = textFieldColors(),
-                        keyboardOptions = KeyboardOptions(
-                            capitalization = KeyboardCapitalization.Words,
-                            imeAction = ImeAction.Next
-                        ),
-                        leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Default.Business,
-                                contentDescription = null,
-                                tint = TextSecondary
-                            )
-                        },
-                        singleLine = true
-                    )
+                    Box(modifier = Modifier.fillMaxWidth()) {
+                        OutlinedTextField(
+                            value = brand,
+                            onValueChange = {
+                                brand = it
+                                brandSearchQuery = it
+                                model = ""
+                                modelSearchQuery = ""
+                                showModelDropdown = false
+                            },
+                            label = { Text("Marca") },
+                            placeholder = { Text("Escribe para buscar...") },
+                            modifier = Modifier.fillMaxWidth(),
+                            colors = textFieldColors(),
+                            trailingIcon = {
+                                IconButton(onClick = { showBrandDropdown = brand.isNotEmpty() && !showBrandDropdown }) {
+                                    Icon(
+                                        imageVector = if (showBrandDropdown) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
+                                        contentDescription = null,
+                                        tint = TextSecondary
+                                    )
+                                }
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = Icons.Default.Business,
+                                    contentDescription = null,
+                                    tint = TextSecondary
+                                )
+                            },
+                            singleLine = true
+                        )
+                        DropdownMenu(
+                            expanded = showBrandDropdown,
+                            onDismissRequest = { showBrandDropdown = false },
+                            modifier = Modifier.fillMaxWidth(0.9f)
+                        ) {
+                            if (filteredBrands.isEmpty()) {
+                                DropdownMenuItem(
+                                    text = { Text("Sin resultados") },
+                                    onClick = { showBrandDropdown = false },
+                                    enabled = false
+                                )
+                            } else {
+                                filteredBrands.take(20).forEach { brandItem ->
+                                    DropdownMenuItem(
+                                        text = { Text(brandItem) },
+                                        onClick = {
+                                            brand = brandItem
+                                            brandSearchQuery = brandItem
+                                            showBrandDropdown = false
+                                        }
+                                    )
+                                }
+                                if (filteredBrands.size > 20) {
+                                    DropdownMenuItem(
+                                        text = { Text("+ ${filteredBrands.size - 20} mas resultados") },
+                                        onClick = { },
+                                        enabled = false
+                                    )
+                                }
+                            }
+                        }
+                    }
 
-                    OutlinedTextField(
-                        value = model,
-                        onValueChange = { model = it },
-                        label = { Text("Modelo") },
-                        placeholder = { Text("Ej: Yaris, Tucson, Spark") },
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = textFieldColors(),
-                        keyboardOptions = KeyboardOptions(
-                            capitalization = KeyboardCapitalization.Words,
-                            imeAction = ImeAction.Next
-                        ),
-                        leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Default.DirectionsCar,
-                                contentDescription = null,
-                                tint = TextSecondary
-                            )
-                        },
-                        singleLine = true
-                    )
+                    Box(modifier = Modifier.fillMaxWidth()) {
+                        OutlinedTextField(
+                            value = model,
+                            onValueChange = {
+                                model = it
+                                modelSearchQuery = it
+                            },
+                            label = { Text("Modelo") },
+                            placeholder = { Text("Escribe para buscar...") },
+                            modifier = Modifier.fillMaxWidth(),
+                            colors = textFieldColors(),
+                            enabled = brand.isNotEmpty(),
+                            trailingIcon = {
+                                if (brand.isNotEmpty()) {
+                                    IconButton(onClick = { showModelDropdown = model.isNotEmpty() && !showModelDropdown }) {
+                                        Icon(
+                                            imageVector = if (showModelDropdown) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
+                                            contentDescription = null,
+                                            tint = TextSecondary
+                                        )
+                                    }
+                                }
+                            },
+                            leadingIcon = {
+                                if (brand.isNotEmpty()) {
+                                    Icon(
+                                        imageVector = Icons.Default.DirectionsCar,
+                                        contentDescription = null,
+                                        tint = TextSecondary
+                                    )
+                                }
+                            },
+                            singleLine = true
+                        )
+                        DropdownMenu(
+                            expanded = showModelDropdown,
+                            onDismissRequest = { showModelDropdown = false },
+                            modifier = Modifier.fillMaxWidth(0.9f)
+                        ) {
+                            if (filteredModels.isEmpty()) {
+                                DropdownMenuItem(
+                                    text = { Text("Sin resultados") },
+                                    onClick = { showModelDropdown = false },
+                                    enabled = false
+                                )
+                            } else {
+                                filteredModels.take(20).forEach { modelItem ->
+                                    DropdownMenuItem(
+                                        text = { Text(modelItem) },
+                                        onClick = {
+                                            model = modelItem
+                                            modelSearchQuery = modelItem
+                                            showModelDropdown = false
+                                        }
+                                    )
+                                }
+                                if (filteredModels.size > 20) {
+                                    DropdownMenuItem(
+                                        text = { Text("+ ${filteredModels.size - 20} mas resultados") },
+                                        onClick = { },
+                                        enabled = false
+                                    )
+                                }
+                            }
+                        }
+                    }
 
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -217,7 +323,7 @@ fun AddVehicleScreen(
 
                         OutlinedTextField(
                             value = color,
-                            onValueChange = { color = it },
+                            onValueChange = { color = it.replaceFirstChar { c -> c.uppercase() } },
                             label = { Text("Color") },
                             placeholder = { Text("Gris") },
                             modifier = Modifier.weight(1f),
