@@ -40,10 +40,14 @@ import java.util.*
 @Composable
 fun EditVehicleScreen(
     viewModel: EditVehicleViewModel = hiltViewModel(),
+    vehicleId: String? = null,
     onBack: () -> Unit
 ) {
     val context = LocalContext.current
-    val vehicle by viewModel.vehicle.collectAsState()
+    val vehicles by viewModel.vehicles.collectAsState()
+    val vehicle = remember(vehicleId, vehicles) {
+        vehicles.find { it.id == vehicleId }
+    }
 
     var brand by remember { mutableStateOf(vehicle?.brand ?: "") }
     var model by remember { mutableStateOf(vehicle?.model ?: "") }

@@ -15,8 +15,8 @@ import javax.inject.Inject
 class EditVehicleViewModel @Inject constructor(
     private val vehicleRepository: VehicleRepository
 ) : ViewModel() {
-    val vehicle: StateFlow<Vehicle?> = vehicleRepository.getVehicle()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
+    val vehicles: StateFlow<List<Vehicle>> = vehicleRepository.getAllVehicles()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     fun saveVehicle(
         brand: String,
@@ -29,7 +29,6 @@ class EditVehicleViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             val newVehicle = Vehicle(
-                id = "default",
                 brand = brand,
                 model = model,
                 year = year,

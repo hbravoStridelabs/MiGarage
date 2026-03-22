@@ -7,6 +7,7 @@ import com.migarage.domain.repository.VehicleRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
@@ -14,6 +15,9 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     repository: VehicleRepository
 ) : ViewModel() {
-    val vehicle: StateFlow<Vehicle?> = repository.getVehicle()
+    val vehicles: StateFlow<List<Vehicle>> = repository.getAllVehicles()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    
+    val firstVehicle: StateFlow<Vehicle?> = vehicles.map { it.firstOrNull() }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 }

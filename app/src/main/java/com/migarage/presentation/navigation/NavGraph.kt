@@ -34,7 +34,21 @@ fun NavGraph(
             HomeScreen(
                 onNavigateToDocuments = { navController.navigate(Screen.Documents.route) },
                 onNavigateToMaintenance = { navController.navigate(Screen.Maintenance.route) },
-                onNavigateToAddVehicle = { navController.navigate(Screen.AddVehicle.route) }
+                onNavigateToAddVehicle = { navController.navigate(Screen.AddVehicle.route) },
+                onNavigateToVehicleDetail = { vehicleId ->
+                    navController.navigate("vehicle/$vehicleId")
+                }
+            )
+        }
+
+        composable(
+            route = "vehicle/{vehicleId}",
+            arguments = listOf(navArgument("vehicleId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val vehicleId = backStackEntry.arguments?.getString("vehicleId") ?: ""
+            EditVehicleScreen(
+                vehicleId = vehicleId,
+                onBack = { navController.popBackStack() }
             )
         }
 

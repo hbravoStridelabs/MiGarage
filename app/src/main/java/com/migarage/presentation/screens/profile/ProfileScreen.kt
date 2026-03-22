@@ -33,7 +33,7 @@ fun ProfileScreen(
     onEditVehicle: () -> Unit
 ) {
     val context = LocalContext.current
-    val vehicle by viewModel.vehicle.collectAsState()
+    val vehicle by viewModel.firstVehicle.collectAsState()
 
     Scaffold(
         topBar = {

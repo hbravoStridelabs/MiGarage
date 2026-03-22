@@ -31,6 +31,7 @@ import com.migarage.BuildConfig
 import com.migarage.R
 import com.migarage.domain.model.Alert
 import com.migarage.domain.model.Document
+import com.migarage.domain.model.Vehicle
 import com.migarage.presentation.theme.*
 import java.time.format.DateTimeFormatter
 
@@ -39,9 +40,11 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     onNavigateToDocuments: () -> Unit,
     onNavigateToMaintenance: () -> Unit,
-    onNavigateToAddVehicle: () -> Unit = {}
+    onNavigateToAddVehicle: () -> Unit = {},
+    onNavigateToVehicleDetail: (String) -> Unit = {}
 ) {
-    val vehicle by viewModel.vehicle.collectAsState()
+    val vehicles by viewModel.vehicles.collectAsState()
+    val selectedVehicle by viewModel.selectedVehicle.collectAsState()
     val expiringDocuments by viewModel.expiringDocuments.collectAsState()
     val recentMaintenance by viewModel.recentMaintenance.collectAsState()
     val activeAlerts by viewModel.activeAlerts.collectAsState()
@@ -53,19 +56,22 @@ fun HomeScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         item {
-            GreetingSection(
-                vehicleName = vehicle?.displayName,
-                licensePlate = vehicle?.licensePlate,
-                mileage = vehicle?.currentMileage,
+            WelcomeImageSection()
+        }
+
+        item {
+            VehicleSelector(
+                vehicles = vehicles,
+                selectedVehicle = selectedVehicle,
+                onVehicleSelected = { vehicle ->
+                    viewModel.selectVehicle(vehicle.id)
+                    onNavigateToVehicleDetail(vehicle.id)
+                },
                 onAddVehicleClick = onNavigateToAddVehicle
             )
         }
 
-        if (vehicle == null) {
-            item {
-                NoVehicleCard(onClick = onNavigateToAddVehicle)
-            }
-        } else {
+        if (selectedVehicle != null) {
             if (expiringDocuments.isNotEmpty()) {
                 item {
                     ExpiringCard(
@@ -80,7 +86,7 @@ fun HomeScreen(
                 QuickStatsRow(
                     documentCount = viewModel.documentCount,
                     maintenanceCount = viewModel.maintenanceCount,
-                    mileage = vehicle?.currentMileage ?: 0,
+                    mileage = selectedVehicle?.currentMileage ?: 0,
                     onDocumentsClick = onNavigateToDocuments,
                     onMaintenanceClick = onNavigateToMaintenance
                 )
@@ -115,6 +121,213 @@ fun HomeScreen(
 
         item {
             Spacer(modifier = Modifier.height(80.dp))
+        }
+    }
+}
+
+@Composable
+private fun WelcomeImageSection() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+            .height(280.dp)
+            .clip(RoundedCornerShape(20.dp))
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.bg_welcome),
+            contentDescription = "Garage",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop,
+            alignment = Alignment.TopCenter,
+            alpha = 0.95f
+        )
+    }
+}
+
+@Composable
+private fun VehicleSelector(
+    vehicles: List<Vehicle>,
+    selectedVehicle: Vehicle?,
+    onVehicleSelected: (Vehicle) -> Unit,
+    onAddVehicleClick: () -> Unit
+) {
+    Column(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Mis Vehículos",
+                style = MaterialTheme.typography.titleMedium,
+                color = TextPrimary,
+                fontWeight = FontWeight.SemiBold
+            )
+            TextButton(onClick = onAddVehicleClick) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp)
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Text("Agregar")
+            }
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        if (vehicles.isEmpty()) {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable(onClick = onAddVehicleClick),
+                colors = CardDefaults.cardColors(containerColor = Surface),
+                shape = RoundedCornerShape(16.dp)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(20.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.DirectionsCar,
+                        contentDescription = null,
+                        tint = Primary,
+                        modifier = Modifier.size(32.dp)
+                    )
+                    Spacer(modifier = Modifier.width(12.dp))
+                    Text(
+                        text = "Agrega tu primer vehículo",
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = TextSecondary
+                    )
+                }
+            }
+        } else {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                vehicles.forEach { vehicle ->
+                    VehicleChip(
+                        vehicle = vehicle,
+                        isSelected = selectedVehicle?.id == vehicle.id,
+                        onClick = { onVehicleSelected(vehicle) },
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+                if (vehicles.size < 3) {
+                    AddVehicleChip(
+                        onClick = onAddVehicleClick,
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun VehicleChip(
+    vehicle: Vehicle,
+    isSelected: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Card(
+        modifier = modifier.clickable(onClick = onClick),
+        colors = CardDefaults.cardColors(
+            containerColor = if (isSelected) Primary.copy(alpha = 0.15f) else Surface
+        ),
+        shape = RoundedCornerShape(16.dp),
+        border = if (isSelected) {
+            androidx.compose.foundation.BorderStroke(2.dp, Primary)
+        } else null
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(40.dp)
+                    .clip(CircleShape)
+                    .background(
+                        if (isSelected) Primary else SurfaceLight
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Default.DirectionsCar,
+                    contentDescription = null,
+                    tint = if (isSelected) Color.White else TextSecondary,
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = vehicle.displayName,
+                style = MaterialTheme.typography.bodySmall,
+                color = if (isSelected) Primary else TextPrimary,
+                fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal,
+                maxLines = 1
+            )
+            vehicle.licensePlate.takeIf { it.isNotBlank() }?.let {
+                Text(
+                    text = it,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = TextSecondary,
+                    letterSpacing = 0.5.sp
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun AddVehicleChip(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Card(
+        modifier = modifier.clickable(onClick = onClick),
+        colors = CardDefaults.cardColors(containerColor = Surface),
+        shape = RoundedCornerShape(16.dp),
+        border = androidx.compose.foundation.BorderStroke(1.dp, SurfaceLight)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(40.dp)
+                    .clip(CircleShape)
+                    .background(SurfaceVariant),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = null,
+                    tint = TextSecondary,
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "Nuevo",
+                style = MaterialTheme.typography.bodySmall,
+                color = TextSecondary
+            )
         }
     }
 }

@@ -6,12 +6,21 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface VehicleDao {
-    @Query("SELECT * FROM vehicle WHERE id = 'default' LIMIT 1")
-    fun getVehicle(): Flow<VehicleEntity?>
+    @Query("SELECT * FROM vehicle ORDER BY createdAt DESC")
+    fun getAllVehicles(): Flow<List<VehicleEntity>>
+
+    @Query("SELECT * FROM vehicle WHERE id = :id LIMIT 1")
+    fun getVehicleById(id: String): Flow<VehicleEntity?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(vehicle: VehicleEntity)
 
-    @Query("UPDATE vehicle SET currentMileage = :mileage, updatedAt = :updatedAt WHERE id = 'default'")
-    suspend fun updateMileage(mileage: Int, updatedAt: Long)
+    @Update
+    suspend fun update(vehicle: VehicleEntity)
+
+    @Query("UPDATE vehicle SET currentMileage = :mileage, updatedAt = :updatedAt WHERE id = :id")
+    suspend fun updateMileage(id: String, mileage: Int, updatedAt: Long)
+
+    @Query("DELETE FROM vehicle WHERE id = :id")
+    suspend fun delete(id: String)
 }

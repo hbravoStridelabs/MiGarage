@@ -14,14 +14,25 @@ class VehicleRepositoryImpl @Inject constructor(
     private val vehicleDao: VehicleDao
 ) : VehicleRepository {
 
-    override fun getVehicle(): Flow<Vehicle?> =
-        vehicleDao.getVehicle().map { it?.toDomain() }
+    override fun getAllVehicles(): Flow<List<Vehicle>> =
+        vehicleDao.getAllVehicles().map { list -> list.map { it.toDomain() } }
+
+    override fun getVehicleById(id: String): Flow<Vehicle?> =
+        vehicleDao.getVehicleById(id).map { it?.toDomain() }
 
     override suspend fun saveVehicle(vehicle: Vehicle) {
         vehicleDao.insert(VehicleEntity.fromDomain(vehicle))
     }
 
-    override suspend fun updateMileage(mileage: Int) {
-        vehicleDao.updateMileage(mileage, System.currentTimeMillis())
+    override suspend fun updateVehicle(vehicle: Vehicle) {
+        vehicleDao.update(VehicleEntity.fromDomain(vehicle))
+    }
+
+    override suspend fun updateMileage(id: String, mileage: Int) {
+        vehicleDao.updateMileage(id, mileage, System.currentTimeMillis())
+    }
+
+    override suspend fun deleteVehicle(id: String) {
+        vehicleDao.delete(id)
     }
 }

@@ -4,7 +4,10 @@ import com.migarage.domain.model.Vehicle
 import kotlinx.coroutines.flow.Flow
 
 interface VehicleRepository {
-    fun getVehicle(): Flow<Vehicle?>
+    fun getAllVehicles(): Flow<List<Vehicle>>
+    fun getVehicleById(id: String): Flow<Vehicle?>
     suspend fun saveVehicle(vehicle: Vehicle)
-    suspend fun updateMileage(mileage: Int)
+    suspend fun updateVehicle(vehicle: Vehicle)
+    suspend fun updateMileage(id: String, mileage: Int)
+    suspend fun deleteVehicle(id: String)
 }
