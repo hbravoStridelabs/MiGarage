@@ -166,7 +166,7 @@ fun AddVehicleScreen(
                         fontWeight = FontWeight.SemiBold
                     )
 
-                    Box(modifier = Modifier.fillMaxWidth()) {
+                    Column(modifier = Modifier.fillMaxWidth()) {
                         OutlinedTextField(
                             value = brand,
                             onValueChange = {
@@ -182,9 +182,9 @@ fun AddVehicleScreen(
                             modifier = Modifier.fillMaxWidth(),
                             colors = textFieldColors(),
                             trailingIcon = {
-                                IconButton(onClick = { showBrandDropdown = true }) {
+                                IconButton(onClick = { showBrandDropdown = !showBrandDropdown }) {
                                     Icon(
-                                        imageVector = Icons.Default.ArrowDropDown,
+                                        imageVector = if (showBrandDropdown) Icons.Default.ArrowDropUp else Icons.Default.ArrowDropDown,
                                         contentDescription = "Ver opciones",
                                         tint = TextSecondary
                                     )
@@ -199,33 +199,49 @@ fun AddVehicleScreen(
                             },
                             singleLine = true
                         )
-                        DropdownMenu(
-                            expanded = showBrandDropdown,
-                            onDismissRequest = { showBrandDropdown = false },
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            if (filteredBrands.isEmpty()) {
-                                DropdownMenuItem(
-                                    text = { Text("Sin resultados") },
-                                    onClick = { showBrandDropdown = false },
-                                    enabled = false
-                                )
-                            } else {
-                                filteredBrands.take(20).forEach { brandItem ->
-                                    DropdownMenuItem(
-                                        text = { Text(brandItem) },
-                                        onClick = {
-                                            brand = brandItem
-                                            brandSearchQuery = brandItem
-                                            showBrandDropdown = false
+                        if (showBrandDropdown) {
+                            Card(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .heightIn(max = 300.dp),
+                                colors = CardDefaults.cardColors(containerColor = Surface),
+                                shape = RoundedCornerShape(8.dp)
+                            ) {
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .verticalScroll(rememberScrollState())
+                                ) {
+                                    if (filteredBrands.isEmpty()) {
+                                        Text(
+                                            text = "Sin resultados",
+                                            modifier = Modifier.padding(16.dp),
+                                            color = TextSecondary
+                                        )
+                                    } else {
+                                        filteredBrands.take(20).forEach { brandItem ->
+                                            TextButton(
+                                                onClick = {
+                                                    brand = brandItem
+                                                    brandSearchQuery = brandItem
+                                                    showBrandDropdown = false
+                                                },
+                                                modifier = Modifier.fillMaxWidth()
+                                            ) {
+                                                Text(
+                                                    text = brandItem,
+                                                    modifier = Modifier.fillMaxWidth(),
+                                                    textAlign = TextAlign.Start
+                                                )
+                                            }
                                         }
-                                    )
+                                    }
                                 }
                             }
                         }
                     }
 
-                    Box(modifier = Modifier.fillMaxWidth()) {
+                    Column(modifier = Modifier.fillMaxWidth()) {
                         OutlinedTextField(
                             value = model,
                             onValueChange = {
@@ -240,9 +256,9 @@ fun AddVehicleScreen(
                             enabled = brand.isNotEmpty(),
                             trailingIcon = {
                                 if (brand.isNotEmpty()) {
-                                    IconButton(onClick = { showModelDropdown = true }) {
+                                    IconButton(onClick = { showModelDropdown = !showModelDropdown }) {
                                         Icon(
-                                            imageVector = Icons.Default.ArrowDropDown,
+                                            imageVector = if (showModelDropdown) Icons.Default.ArrowDropUp else Icons.Default.ArrowDropDown,
                                             contentDescription = "Ver opciones",
                                             tint = TextSecondary
                                         )
@@ -260,27 +276,43 @@ fun AddVehicleScreen(
                             },
                             singleLine = true
                         )
-                        DropdownMenu(
-                            expanded = showModelDropdown,
-                            onDismissRequest = { showModelDropdown = false },
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            if (filteredModels.isEmpty()) {
-                                DropdownMenuItem(
-                                    text = { Text("Sin resultados") },
-                                    onClick = { showModelDropdown = false },
-                                    enabled = false
-                                )
-                            } else {
-                                filteredModels.take(20).forEach { modelItem ->
-                                    DropdownMenuItem(
-                                        text = { Text(modelItem) },
-                                        onClick = {
-                                            model = modelItem
-                                            modelSearchQuery = modelItem
-                                            showModelDropdown = false
+                        if (showModelDropdown) {
+                            Card(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .heightIn(max = 300.dp),
+                                colors = CardDefaults.cardColors(containerColor = Surface),
+                                shape = RoundedCornerShape(8.dp)
+                            ) {
+                                Column(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .verticalScroll(rememberScrollState())
+                                ) {
+                                    if (filteredModels.isEmpty()) {
+                                        Text(
+                                            text = "Sin resultados",
+                                            modifier = Modifier.padding(16.dp),
+                                            color = TextSecondary
+                                        )
+                                    } else {
+                                        filteredModels.take(20).forEach { modelItem ->
+                                            TextButton(
+                                                onClick = {
+                                                    model = modelItem
+                                                    modelSearchQuery = modelItem
+                                                    showModelDropdown = false
+                                                },
+                                                modifier = Modifier.fillMaxWidth()
+                                            ) {
+                                                Text(
+                                                    text = modelItem,
+                                                    modifier = Modifier.fillMaxWidth(),
+                                                    textAlign = TextAlign.Start
+                                                )
+                                            }
                                         }
-                                    )
+                                    }
                                 }
                             }
                         }
