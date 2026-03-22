@@ -4,9 +4,8 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
-import android.os.Handler
-import android.os.Looper
 import com.migarage.BuildConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,28 +21,32 @@ object UpdateChecker {
     private const val REPO_NAME = "MiGarage"
     private const val VERSION_URL = "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases/latest"
     private const val CHECK_INTERVAL_MS = 30 * 60 * 1000L // 30 minutes
+    private const val PREFS_NAME = "migarage_update_prefs"
+    private const val KEY_DISMISSED_VERSION = "dismissed_version"
+    private const val KEY_LAST_CHECK = "last_check_time"
 
-    private var lastCheckTime = 0L
     private var hasShownUpdateDialogThisSession = false
-    private var updateDismissedForVersion: String? = null
+
+    private fun getPrefs(context: Context): SharedPreferences {
+        return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    }
 
     fun checkForUpdates(context: Context, forceCheck: Boolean = false) {
         val currentVersion = BuildConfig.VERSION_NAME
+        val prefs = getPrefs(context)
         
-        if (hasShownUpdateDialogThisSession && !forceCheck) {
-            return
-        }
-        
-        if (updateDismissedForVersion == currentVersion) {
+        val dismissedVersion = prefs.getString(KEY_DISMISSED_VERSION, null)
+        if (dismissedVersion == currentVersion) {
             return
         }
 
         val currentTime = System.currentTimeMillis()
-        if (!forceCheck && (currentTime - lastCheckTime) < CHECK_INTERVAL_MS) {
+        val lastCheck = prefs.getLong(KEY_LAST_CHECK, 0)
+        if (!forceCheck && (currentTime - lastCheck) < CHECK_INTERVAL_MS) {
             return
         }
 
-        lastCheckTime = currentTime
+        prefs.edit().putLong(KEY_LAST_CHECK, currentTime).apply()
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -72,7 +75,7 @@ object UpdateChecker {
                     }
                 }
             } catch (e: Exception) {
-                // Silent fail - don't bother user with network errors
+                // Silent fail
             }
         }
     }
@@ -94,6 +97,13 @@ object UpdateChecker {
     }
 
     fun showUpdateDialog(context: Context, updateInfo: UpdateInfo) {
+        val prefs = getPrefs(context)
+        val currentDismissed = prefs.getString(KEY_DISMISSED_VERSION, null)
+        
+        if (currentDismissed == updateInfo.versionName) {
+            return
+        }
+
         AlertDialog.Builder(context)
             .setTitle("Nueva versión disponible")
             .setMessage("La versión ${updateInfo.versionName} está disponible. ¿Deseas descargarla ahora?")
@@ -101,7 +111,7 @@ object UpdateChecker {
                 downloadAndInstall(context, updateInfo.downloadUrl)
             }
             .setNegativeButton("Más tarde") { dialog: DialogInterface, _: Int ->
-                updateDismissedForVersion = updateInfo.versionName
+                prefs.edit().putString(KEY_DISMISSED_VERSION, updateInfo.versionName).apply()
                 dialog.dismiss()
             }
             .setCancelable(false)
