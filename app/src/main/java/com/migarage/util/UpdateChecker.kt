@@ -25,9 +25,16 @@ object UpdateChecker {
 
     private var lastCheckTime = 0L
     private var hasShownUpdateDialogThisSession = false
+    private var updateDismissedForVersion: String? = null
 
     fun checkForUpdates(context: Context, forceCheck: Boolean = false) {
+        val currentVersion = BuildConfig.VERSION_NAME
+        
         if (hasShownUpdateDialogThisSession && !forceCheck) {
+            return
+        }
+        
+        if (updateDismissedForVersion == currentVersion) {
             return
         }
 
@@ -56,8 +63,6 @@ object UpdateChecker {
                     val downloadUrl = json.optJSONArray("assets")
                         ?.optJSONObject(0)
                         ?.optString("browser_download_url") ?: ""
-
-                    val currentVersion = BuildConfig.VERSION_NAME
 
                     if (isNewerVersion(versionName, currentVersion)) {
                         withContext(Dispatchers.Main) {
@@ -96,6 +101,7 @@ object UpdateChecker {
                 downloadAndInstall(context, updateInfo.downloadUrl)
             }
             .setNegativeButton("Más tarde") { dialog: DialogInterface, _: Int ->
+                updateDismissedForVersion = updateInfo.versionName
                 dialog.dismiss()
             }
             .setCancelable(false)

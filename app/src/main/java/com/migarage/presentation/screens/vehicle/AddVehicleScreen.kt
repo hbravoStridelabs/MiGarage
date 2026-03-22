@@ -168,7 +168,9 @@ fun AddVehicleScreen(
 
                     ExposedDropdownMenuBox(
                         expanded = showBrandDropdown,
-                        onExpandedChange = { showBrandDropdown = it }
+                        onExpandedChange = { 
+                            if (brand.isNotEmpty()) showBrandDropdown = it
+                        }
                     ) {
                         OutlinedTextField(
                             value = brand,
@@ -202,15 +204,23 @@ fun AddVehicleScreen(
                             expanded = showBrandDropdown,
                             onDismissRequest = { showBrandDropdown = false }
                         ) {
-                            filteredBrands.take(20).forEach { brandItem ->
+                            if (filteredBrands.isEmpty()) {
                                 DropdownMenuItem(
-                                    text = { Text(brandItem) },
-                                    onClick = {
-                                        brand = brandItem
-                                        brandSearchQuery = brandItem
-                                        showBrandDropdown = false
-                                    }
+                                    text = { Text("Sin resultados") },
+                                    onClick = { showBrandDropdown = false },
+                                    enabled = false
                                 )
+                            } else {
+                                filteredBrands.take(20).forEach { brandItem ->
+                                    DropdownMenuItem(
+                                        text = { Text(brandItem) },
+                                        onClick = {
+                                            brand = brandItem
+                                            brandSearchQuery = brandItem
+                                            showBrandDropdown = false
+                                        }
+                                    )
+                                }
                             }
                         }
                     }
