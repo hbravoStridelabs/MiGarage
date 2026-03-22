@@ -69,24 +69,20 @@ object UpdateChecker {
                         return@launch
                     }
                     
-                    val releaseUrl = URL(RELEASE_URL)
-                    val releaseConnection = releaseUrl.openConnection() as HttpURLConnection
-                    releaseConnection.requestMethod = "GET"
-                    releaseConnection.setRequestProperty("Accept", "application/json")
-                    releaseConnection.connectTimeout = 10000
-                    releaseConnection.readTimeout = 10000
+                    val tagReleaseUrl = URL("https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases/tags/$latestTag")
+                    val tagConnection = tagReleaseUrl.openConnection() as HttpURLConnection
+                    tagConnection.requestMethod = "GET"
+                    tagConnection.setRequestProperty("Accept", "application/json")
+                    tagConnection.connectTimeout = 10000
+                    tagConnection.readTimeout = 10000
                     
                     var downloadUrl = ""
-                    if (releaseConnection.responseCode == HttpURLConnection.HTTP_OK) {
-                        val releaseResponse = releaseConnection.inputStream.bufferedReader().use { it.readText() }
-                        val releaseJson = JSONObject(releaseResponse)
-                        val releaseTag = releaseJson.optString("tag_name", "").removePrefix("v")
-                        
-                        if (releaseTag == latestTag) {
-                            downloadUrl = releaseJson.optJSONArray("assets")
-                                ?.optJSONObject(0)
-                                ?.optString("browser_download_url") ?: ""
-                        }
+                    if (tagConnection.responseCode == HttpURLConnection.HTTP_OK) {
+                        val tagResponse = tagConnection.inputStream.bufferedReader().use { it.readText() }
+                        val tagJson = JSONObject(tagResponse)
+                        downloadUrl = tagJson.optJSONArray("assets")
+                            ?.optJSONObject(0)
+                            ?.optString("browser_download_url") ?: ""
                     }
                     
                     if (downloadUrl.isNotEmpty()) {
@@ -100,7 +96,7 @@ object UpdateChecker {
             }
         }
     }
-    
+
     private fun findLatestVersionTag(tagsResponse: String): String? {
         val versionTags = mutableListOf<String>()
         val regex = Regex(""""name":\s*"v?(\d+\.\d+\.\d+)" """)
